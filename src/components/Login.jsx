@@ -1,13 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../AuthContext';
 
 const Login = () => {
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    const handleSubmit = (e)=>{
+    const { login } = useContext(AuthContext);
+
+    const handleSubmit = async(e)=>{
         e.preventDefault()
-        console.log(email , password)
+
+        if(email.trim() == "")
+        {
+          toast.error("email is empty")
+          return
+        }
+        if(password.trim() == "")
+        {
+          toast.error("password is empty")
+          return
+        }
+
+
+        let response = ''
+        try {
+          response = await axios.post('http://localhost:8000/login', {
+            email,
+            password
+          });
+
+          toast.success(response.data.message);
+
+          login(response.data.content);
+          navigate("/")
+
+      
+          console.log(response.data); // Assuming the response contains JSON data
+        } catch (error) {
+          if (error.response && error.response.status === 401) {
+            // Display "Email already exists" message
+            console.log(error.response.data.detail);
+            // Show the toast message using react-toastify or any other toast library
+            toast.error(error.response.data.detail);
+        }else{
+          toast.error("Something went wrong");
+        }
+
+        console.log( email , password)
+    }
     }
 
   return (

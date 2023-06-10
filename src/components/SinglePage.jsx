@@ -1,13 +1,56 @@
-import React from 'react'
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import BorderColorSharpIcon from '@mui/icons-material/BorderColorSharp';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {AuthContext} from '../AuthContext'
+
 
 const SinglePage = () => {
 
+
+    const { state } = useContext(AuthContext);
+    const [isDeleted, setIsDeleted] = useState(false);
+
     const { id } = useParams();
 
-    console.log(id)
+    const [post, setPost] = useState("")
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+
+        const fetchpost = async()=>{
+
+            const res = await axios.get(`http://localhost:8000/blogs/${id}`)
+
+            setPost(res.data)
+
+            console.log(res.data)
+
+        }
+
+        fetchpost()
+
+    },[id])
+
+   
+    
+
+    const deleteHandler = async ()=>{
+
+        const post = await axios.delete(`http://localhost:8000/blogs/${id}`)
+
+        setIsDeleted(true);
+
+        toast.error("Post deleted successfully")
+    }
+
+    if (isDeleted) {
+        navigate("/")
+      }
 
 
   return (
@@ -18,7 +61,7 @@ const SinglePage = () => {
                      <div class="max-w-6xl px-10 py-6 mx-auto bg-gray-50">
                         
 		                <a href="#_" class="block transition duration-200 ease-out transform hover:scale-110">
-	                        <img class="object-cover w-full shadow-sm h-full" src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1951&amp;q=80" />
+	                        <img class="object-cover w-full shadow-sm h-full" src= {post.image} />
 	                    </a>
 
 		                <div class="flex items-center justify-start mt-4 mb-4">
@@ -29,7 +72,7 @@ const SinglePage = () => {
                         <div class="mt-2">
                         	
                         	<a href="#"
-                                class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-purple-500  hover:underline">Django Authentication with oauth using facebook,twitter and google</a>
+                                class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-purple-500  hover:underline">{post.title}</a>
 
                               
                                 <div class="flex justify-start items-center mt-2">
@@ -44,11 +87,16 @@ const SinglePage = () => {
 	                        		<a href="#" class="self-start flex items-center mt-6 mb-6"><img
 	                                        src="https://avatars.githubusercontent.com/u/71964085?v=4"
 	                                        alt="avatar" class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block" />
-	                                    <h1 class="font-bold text-gray-700 hover:underline">By James Amos</h1>
+	                                    <h1 class="font-bold text-gray-700 hover:underline">{post.description}</h1>
 	                                </a>
                                 <div className="flex float-right gap-3 px-4">
+                                {
+                                    (state.isLoggedIn && state.user.id === post.author_id) ?
+                                 
+                                <>
                                 <Link to = {`/blog/${id}/edit` }> <BorderColorSharpIcon className = "self-end hover:bg-green-100 cursor-pointer"/> </Link>
-                                <DeleteForeverSharpIcon className = "self-end hover:bg-red-100 cursor-pointer"/>
+                                <DeleteForeverSharpIcon className = "self-end hover:bg-red-100 cursor-pointer" onClick = {deleteHandler} />
+                                </> : ''}
                                 </div>
 
                         	  </div>
@@ -57,7 +105,7 @@ const SinglePage = () => {
                  <div class="max-w-4xl px-10  mx-auto text-2xl text-gray-700 mt-4 rounded bg-gray-100">
 
                  	<div>
-                        	<p class="mt-2 p-8">If you created a web application and wanted it to grow a user base reall quickly,the easiest way is to avoid bothering them with alot forms. No one likes filling up forms! A web form should and must only be used when necessary,in case a user doesnt have account with any of the social networks.That is the moment you want to implement social login on your application.</p>
+                        	<p class="mt-2 p-8">{post.content}</p>
                      </div>
 
                      

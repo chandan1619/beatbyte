@@ -8,7 +8,7 @@ const Card = (prop) => {
     
     <div class="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-            <img class="rounded-t-lg " src={prop.blog.src} alt="" />
+            <img class="rounded-t-lg " src = {prop.blog.image} alt="" />
         </a>
         <div class="p-5">
             <a href="#">

@@ -10,8 +10,11 @@ import home from './pages/home';
 import singlepage from './pages/singlepage';
 import editor from './pages/editor';
 
+
 function App() {
   return (
+
+   
    <Router>
 
     <Routes>
@@ -26,6 +29,8 @@ function App() {
 
     </Routes>
     </Router>
+
+    
   );
 }
 
