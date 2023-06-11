@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { AuthContext } from '../AuthContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import logo from '../images/ByteBeat.png';
 
 
 
@@ -31,8 +32,8 @@ const TopBar = () => {
            
             <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              
             </svg>
-           
             <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -46,7 +47,7 @@ const TopBar = () => {
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4 justify-between">
               
-              <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Blogs</a>
+              <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">ByteBeat</a>
               <Link to = "/ " className ="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"> Home </Link>
               { state.isLoggedIn ? <Link to = "" onClick={Logout} className ="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"> Logout </Link> :
                <><Link to = "/login " className ="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"> Login </Link>
