@@ -11,6 +11,11 @@ import {AuthContext} from '../AuthContext'
 const SinglePage = () => {
 
 
+    const [comment, setComment] = useState("")
+
+    const [comments, setComments] = useState([])
+
+
     const { state } = useContext(AuthContext);
     const [isDeleted, setIsDeleted] = useState(false);
 
@@ -19,6 +24,9 @@ const SinglePage = () => {
     const [post, setPost] = useState("")
 
     const navigate = useNavigate();
+
+
+
 
     useEffect(()=>{
 
@@ -36,6 +44,58 @@ const SinglePage = () => {
 
     },[id])
 
+
+    const commentHandler = async (event) => {
+        event.preventDefault();
+      
+        // Handle the comment submission
+        console.log("Post ID:", post.id, state);
+
+        if(state.user == null)
+        {
+            toast.error("please login to comment")
+            return
+        }
+        // Rest of your logic...
+
+        try{
+
+            const response = await axios.post(`http://localhost:8000/post/${id}/comment`,{
+                content: comment,
+                user_id: state.user.id,
+                blog_id: post.id
+
+            })
+
+            toast.success("your comment has been published")
+            console.log(response.data)
+            window.location.reload();
+            window.scrollTo(0, 0);
+         }
+        catch(exe){
+             console.log(exe)
+            }
+    };
+
+
+    useEffect( ()=>{
+
+        const fetch_comments = async ()=>{
+
+        const response = await axios.get(`http://localhost:8000/post/${id}/comment`)
+
+        setComments(response.data)
+
+        
+
+        console.log(`comments is ${response.data}`)
+
+        }
+
+        fetch_comments()
+
+
+    },[])
    
     
 
@@ -85,9 +145,9 @@ const SinglePage = () => {
                                <div class="font-light text-gray-600 flex items-center border-2 justify-between">
 	                              
 	                        		<a href="#" class="self-start flex items-center mt-6 mb-6"><img
-	                                        src="https://avatars.githubusercontent.com/u/71964085?v=4"
+	                                        src="https://static.vecteezy.com/system/resources/previews/014/194/232/original/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg"
 	                                        alt="avatar" class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block" />
-	                                    <h1 class="font-bold text-gray-700 hover:underline">{post.description}</h1>
+	                                  {post.name &&   <h1 class="font-bold text-gray-700 hover:underline">{post.name[0].toUpperCase() +  post.name.substring(1)}</h1> }
 	                                </a>
                                 <div className="flex float-right gap-3 px-4">
                                 {
@@ -102,7 +162,11 @@ const SinglePage = () => {
                         	  </div>
                        </div>
                     
-                 <div class="max-w-4xl px-10  mx-auto text-2xl text-gray-700 mt-4 rounded bg-gray-100">
+                 <div class="max-w-4xl  text-2xl text-gray-700 mt-4 rounded bg-gray-100 ml-20">
+
+                    <div>
+                        <p><p class="mt-2 p-8 font-bold  w-full text-purple-500">{post.description}</p></p>
+                    </div>
 
                  	<div>
                         	<p class="mt-2 p-8">{post.content}</p>
@@ -164,10 +228,10 @@ const SinglePage = () => {
 			 <div class="max-w-4xl py-16 xl:px-8 flex justify-center mx-auto">
 						        
 				<div class="w-full mt-16 md:mt-0 ">
-				   <form class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
+				   <form class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7" onSubmit = {commentHandler}>
 					   <h3 class="mb-6 text-2xl font-medium text-center">Write a comment</h3>
-					   <textarea type="text" name="comment" class="w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Write your comment" rows="5" cols="33"></textarea>
-					   <input type="submit" value="Submit comment" name="submit" class=" text-white px-4 py-3 bg-blue-500  rounded-lg" />
+					   <textarea type="text" name="comment" class="w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Write your comment" rows="5" cols="33" onChange={(e)=>setComment(e.target.value)}></textarea>
+					   <input type="submit" value="Submit comment" name="submit" class=" text-white px-4 py-3 bg-blue-500  rounded-lg"   />
 				   </form>
 			   </div>
 		    </div>
@@ -180,31 +244,25 @@ const SinglePage = () => {
 		        <p class="mt-1 text-2xl font-bold text-left text-gray-800 sm:mx-6 sm:text-2xl md:text-3xl lg:text-4xl sm:text-center sm:mx-0">
 		            All comments on this post
 		        </p>
-		 \
+                { comments && comments.map((comment,index)=>
 		        <div class="flex  items-center w-full px-6 py-6 mx-auto mt-10 bg-white border border-gray-200 rounded-lg sm:px-8 md:px-12 sm:py-8 sm:shadow lg:w-5/6 xl:w-2/3">
 
-		        	<a href="#" class="flex items-center mt-6 mb-6 mr-6"><img src="https://avatars.githubusercontent.com/u/71964085?v=4" alt="avatar" class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block" />
+		        	<a href="#" class="flex items-center mt-6 mb-6 mr-6"><img src="https://static.vecteezy.com/system/resources/previews/014/194/232/original/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg" alt="avatar" class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block" />
 			        </a>
-
-		            <div><h3 class="text-lg font-bold text-purple-500 sm:text-xl md:text-2xl">By James Amos</h3>
-		            	<p class="text-sm font-bold text-gray-300">August 22,2021</p>
+                    
+                   
+		            <div><h3 class="text-lg font-bold text-purple-500 sm:text-xl md:text-2xl">{comment.name}</h3>
+		            	<p class="text-sm font-bold text-gray-300">{comment.date_added}</p>
 		            	<p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal">
-		               Please help with how you did the migrations for the blog database fields.I tried mine using exactly what you instructed but its not working!!.</p>
+		               {comment.content}</p>
 		            </div>
+
+                    
 		            
 		        </div>
+                )}
 		  
-		        <div class="flex  items-center w-full px-6 py-6 mx-auto mt-10 bg-white border border-gray-200 rounded-lg sm:px-8 md:px-12 sm:py-8 sm:shadow lg:w-5/6 xl:w-2/3">
-
-		        	<a href="#" class="flex items-center mt-6 mb-6 mr-6"><img src="https://avatars.githubusercontent.com/u/71964085?v=4" alt="avatar" class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block" />
-			        </a>
-
-		            <div><h3 class="text-lg font-bold text-purple-500 sm:text-xl md:text-2xl">By James Amos</h3>
-		            	<p class="text-sm font-bold text-gray-300">August 22,2021</p>
-		            	<p class="mt-2 text-base text-gray-600 sm:text-lg md:text-normal">
-		                Especially I dont understand the concepts of multiple models.What really is the difference between the blog model and blogApp model? Am stuck</p>
-		            </div>
-		        </div>
+		        
 
 		    </div>
 		  </div>
