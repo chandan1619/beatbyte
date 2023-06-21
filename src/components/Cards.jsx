@@ -62,7 +62,7 @@ const Cards = () => {
               type="text"
               id="voice-search"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search Mockups, Logos, Design Templates..."
+              placeholder="Search topics, titles, ad concepts..."
               required
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
@@ -113,8 +113,8 @@ const Cards = () => {
           ) : searchQuery.trim().length > 1 ? (
             <div>
               {matchingPosts.map((post) => (
-                <div className="flex justify-items-center items-center align-middle border-1 p-3">
-                  <div className="container max-w-5xl py-6 rounded-lg shadow-sm dark:bg-gray-900">
+                <div className="flex justify-items-center items-center align-middle border-1 p-3 max-w-6xl">
+                  <div className="container max-w-6xl py-6 rounded-lg shadow-sm dark:bg-gray-200">
                     <div className="flex items-center justify-between">
                       <span className="text-sm dark:text-gray-400">
                         {new Date(post.date_added).toLocaleDateString("en-US", {
@@ -192,7 +192,7 @@ const Cards = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-start items-left gap-5 mx-5">
+      <div className="flex flex-wrap justify-center items-left gap-5 mx-5">
         {blogs.map((blog, index) => (
           <Card blog={blog} />
         ))}

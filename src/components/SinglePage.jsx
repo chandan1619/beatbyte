@@ -108,12 +108,7 @@ const SinglePage = () => {
           <a
             href="#_"
             class="block transition duration-200 ease-out transform hover:scale-110"
-          >
-            <img
-              class="object-cover w-full shadow-sm h-full"
-              src={post.image}
-            />
-          </a>
+          ></a>
 
           <div class="flex items-center justify-start mt-4 mb-4">
             <a
