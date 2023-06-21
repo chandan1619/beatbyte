@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../AuthContext";
 import API_BASE_URL from "../config";
+import clap from "../images/clapping.png";
+import ReactMarkdown from "react-markdown";
 
 const SinglePage = () => {
   const [comment, setComment] = useState("");
@@ -85,6 +87,19 @@ const SinglePage = () => {
   if (isDeleted) {
     navigate("/");
   }
+
+  const Image = ({ src, alt }) => (
+    <div className="flex justify-center">
+      <img
+        src={src}
+        alt={alt}
+        style={{ maxWidth: "100%", marginBottom: "1rem" }}
+      />
+    </div>
+  );
+  const components = {
+    img: Image,
+  };
 
   return (
     <div class="mt-6 bg-gray-50">
