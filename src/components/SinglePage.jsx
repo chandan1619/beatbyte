@@ -47,14 +47,11 @@ const SinglePage = () => {
     // Rest of your logic...
 
     try {
-      const response = await axios.post(
-        `http://localhost:8000/post/${id}/comment`,
-        {
-          content: comment,
-          user_id: state.user.id,
-          blog_id: post.id,
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL}/post/${id}/comment`, {
+        content: comment,
+        user_id: state.user.id,
+        blog_id: post.id,
+      });
 
       toast.success("your comment has been published");
       console.log(response.data);
@@ -67,9 +64,7 @@ const SinglePage = () => {
 
   useEffect(() => {
     const fetch_comments = async () => {
-      const response = await axios.get(
-        `http://localhost:8000/post/${id}/comment`
-      );
+      const response = await axios.get(`${API_BASE_URL}/post/${id}/comment`);
 
       setComments(response.data);
 
@@ -80,7 +75,7 @@ const SinglePage = () => {
   }, []);
 
   const deleteHandler = async () => {
-    const post = await axios.delete(`http://localhost:8000/blogs/${id}`);
+    const post = await axios.delete(`${API_BASE_URL}/blogs/${id}`);
 
     setIsDeleted(true);
 
