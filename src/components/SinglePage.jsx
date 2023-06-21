@@ -170,14 +170,24 @@ const SinglePage = () => {
           <div class="max-w-4xl  text-2xl text-gray-700 mt-4 rounded bg-gray-100 ml-20">
             <div>
               <p>
-                <p class="mt-2 p-8 font-bold  w-full text-purple-500">
+                <p class="mt-2 p-8 font-bold  w-full text-gray-700">
                   {post.description}
                 </p>
               </p>
             </div>
 
-            <div>
-              <p class="mt-2 p-8">{post.content}</p>
+            <div className="max-w-4xl">
+              <p class="mt-2 p-8">
+                <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif text-md">
+                  <ReactMarkdown
+                    components={components}
+                    breaks
+                    skipHtml={false}
+                  >
+                    {post.content}
+                  </ReactMarkdown>
+                </pre>
+              </p>
             </div>
           </div>
         </div>
