@@ -4,6 +4,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../AuthContext';
+import API_BASE_URL from "../config";
 
 const Login = () => {
 
@@ -31,9 +32,9 @@ const Login = () => {
 
         let response = ''
         try {
-          response = await axios.post('http://localhost:8000/login', {
+          response = await axios.post(`${API_BASE_URL}/login`, {
             email,
-            password
+            password,
           });
 
           toast.success(response.data.message);

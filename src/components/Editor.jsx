@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthContext} from '../AuthContext'
+import { AuthContext } from '../AuthContext'
+import API_BASE_URL from "../config";
 
 const Editor = () => {
 
@@ -39,7 +40,7 @@ const Editor = () => {
       let response = ''
       if(selectedImage)
       {
-        response = await axios.post('http://localhost:8000/blog/upload', formData);
+        response = await axios.post("${API_BASE_URL}/blog/upload", formData);
         console.log('File uploaded successfully:', response.data);
       }
       
@@ -60,7 +61,10 @@ const Editor = () => {
 
         }
 
-        const response_update = await axios.put(`http://localhost:8000/blogs/${id}`,payload)
+        const response_update = await axios.put(
+          `${API_BASE_URL}/blogs/${id}`,
+          payload
+        );
 
         toast.success("post updated successfully")
   
@@ -70,17 +74,13 @@ const Editor = () => {
     else{
 
       console.log("inside creating new post")
-        const response_create = await axios.post('http://localhost:8000/blogs',
-        {
-          image : response.data.file_url,
+        const response_create = await axios.post("${API_BASE_URL}/blogs", {
+          image: response.data.file_url,
           title: title,
           description: description,
           content: content,
-          author_id: state.user.id
-        }
-
-        
-      )
+          author_id: state.user.id,
+        });
 
       console.log(response_create)
 
@@ -103,7 +103,7 @@ const Editor = () => {
 
     const fetchpost = async()=>{
 
-      const post = await axios.get(`http://localhost:8000/blogs/${id}`)
+      const post = await axios.get(`${API_BASE_URL}/blogs/${id}`);
 
       setPost(post.data)
 

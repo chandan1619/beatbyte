@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import API_BASE_URL from "../config";
 
 const Cards = () => {
     
@@ -16,7 +17,7 @@ const Cards = () => {
     console.log(`search query is ${searchQuery}`)
 
     // Make a request to the backend endpoint
-    const response = await axios.get(`http://localhost:8000/blogs/all/search?query=${query}`);
+    const response = await axios.get(`${API_BASE_URL}/blogs/all/search?query=${query}`);
     setMatchingPosts(response.data);
 
   };
@@ -24,7 +25,7 @@ const Cards = () => {
     useEffect(() => {
       const fetchPosts = async () => {
         try {
-          const response = await axios.get("http://localhost:8000/blogs");
+          const response = await axios.get("${API_BASE_URL}/blogs");
           setBlogs(response.data);
           console.log(response.data)
         } catch (error) {
