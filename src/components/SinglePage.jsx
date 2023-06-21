@@ -103,19 +103,19 @@ const SinglePage = () => {
           <div class="flex items-center justify-start mt-4 mb-4">
             <a
               href="#"
-              class="px-2 py-1 font-bold bg-red-400 text-white rounded-lg hover:bg-gray-500 mr-4"
+              class="px-2 py-1 font-bold bg-blue-400 text-white rounded-lg hover:bg-gray-500 mr-4"
             >
               Django
             </a>
             <a
               href="#"
-              class="px-2 py-1 font-bold bg-red-400 text-white rounded-lg hover:bg-gray-500 mr-4"
+              class="px-2 py-1 font-bold bg-blue-400 text-white rounded-lg hover:bg-gray-500 mr-4"
             >
               Python
             </a>
             <a
               href="#"
-              class="px-2 py-1 font-bold bg-red-400 text-white rounded-lg hover:bg-gray-500"
+              class="px-2 py-1 font-bold bg-blue-400 text-white rounded-lg hover:bg-gray-500"
             >
               web development
             </a>
@@ -123,7 +123,7 @@ const SinglePage = () => {
           <div class="mt-2">
             <a
               href="#"
-              class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-purple-500  hover:underline"
+              class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-black-500  hover:underline"
             >
               {post.title}
             </a>
@@ -135,19 +135,32 @@ const SinglePage = () => {
               <p class="text-sm text-gray-400 font-bold ml-5">Views</p>
             </div>
 
-            <div class="font-light text-gray-600 flex items-center border-2 justify-between">
+            <div class="font-light text-gray-600 flex items-center justify-between">
               <a href="#" class="self-start flex items-center mt-6 mb-6">
                 <img
                   src="https://static.vecteezy.com/system/resources/previews/014/194/232/original/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg"
                   alt="avatar"
                   class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block"
                 />
-                {post.name && (
-                  <h1 class="font-bold text-gray-700 hover:underline">
-                    {post.name[0].toUpperCase() + post.name.substring(1)}
-                  </h1>
-                )}
+                <div>
+                  <p className="">
+                    {post.name && (
+                      <h1 class="font-bold text-gray-700 hover:underline">
+                        {post.name[0].toUpperCase() + post.name.substring(1)}
+                      </h1>
+                    )}
+                  </p>
+                  <p>
+                    Published on{" "}
+                    {new Date(post.date_added).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </p>
+                </div>
               </a>
+
               <div className="flex float-right gap-3 px-4">
                 {state.isLoggedIn && state.user.id === post.author_id ? (
                   <>
@@ -190,6 +203,10 @@ const SinglePage = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="flex justify-start items-center mx-auto ml-40">
+          <img className="h-7 w-7 text-gray-200" src={clap} />
         </div>
 
         <h2 class="text-2xl mt-4 text-gray-500 font-bold text-center">
