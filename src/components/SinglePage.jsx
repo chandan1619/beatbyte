@@ -104,12 +104,7 @@ const SinglePage = () => {
   return (
     <div class="mt-6 bg-gray-50">
       <div class=" px-10 py-6 mx-auto">
-        <div class="max-w-6xl px-10 py-6 mx-auto bg-gray-50">
-          <a
-            href="#_"
-            class="block transition duration-200 ease-out transform hover:scale-110"
-          ></a>
-
+        <div class="max-w-6xl px-10 mx-auto bg-gray-50">
           <div class="flex items-center justify-start mt-4 mb-4">
             <a
               href="#"
@@ -138,12 +133,12 @@ const SinglePage = () => {
               {post.title}
             </a>
 
-            <div class="flex justify-start items-center mt-2">
+            {/* <div class="flex justify-start items-center mt-2">
               <p class="text-sm text-green-500 font-bold bg-gray-100 rounded-full py-2 px-2 hover:text-red-500">
                 3000
               </p>
               <p class="text-sm text-gray-400 font-bold ml-5">Views</p>
-            </div>
+            </div> */}
 
             <div class="font-light text-gray-600 flex items-center justify-between">
               <a href="#" class="self-start flex items-center mt-6 mb-6">
@@ -178,10 +173,10 @@ const SinglePage = () => {
                       {" "}
                       <BorderColorSharpIcon className="self-end hover:bg-green-100 cursor-pointer" />{" "}
                     </Link>
-                    <DeleteForeverSharpIcon
+                    {/* <DeleteForeverSharpIcon
                       className="self-end hover:bg-red-100 cursor-pointer"
                       onClick={deleteHandler}
-                    />
+                    /> */}
                   </>
                 ) : (
                   ""
@@ -190,17 +185,17 @@ const SinglePage = () => {
             </div>
           </div>
 
-          <div class="max-w-4xl  text-2xl text-gray-700 mt-4 rounded bg-gray-100 ml-20">
+          <div class="max-w-4xl  text-2xl text-gray-700 rounded bg-gray-100 ml-20">
             <div>
               <p>
-                <p class="mt-2 p-8 font-bold  w-full text-gray-700">
+                <p class="font-bold  w-full text-gray-700">
                   {post.description}
                 </p>
               </p>
             </div>
 
-            <div className="max-w-4xl">
-              <p class="mt-2 p-8">
+            <div className="max-w-full">
+              <p class="">
                 <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif text-md">
                   <ReactMarkdown
                     components={components}
