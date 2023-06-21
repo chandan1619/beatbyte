@@ -40,7 +40,7 @@ const Editor = () => {
       let response = ''
       if(selectedImage)
       {
-        response = await axios.post("${API_BASE_URL}/blog/upload", formData);
+        response = await axios.post(`${API_BASE_URL}/blog/upload`, formData);
         console.log('File uploaded successfully:', response.data);
       }
       
@@ -74,7 +74,7 @@ const Editor = () => {
     else{
 
       console.log("inside creating new post")
-        const response_create = await axios.post("${API_BASE_URL}/blogs", {
+        const response_create = await axios.post(`${API_BASE_URL}/blogs`, {
           image: response.data.file_url,
           title: title,
           description: description,
