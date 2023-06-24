@@ -10,10 +10,13 @@ import API_BASE_URL from "../config";
 import clap from "../images/clapping.png";
 import ReactMarkdown from "react-markdown";
 import Card from "./Card";
+import { Audio } from 'react-loader-spinner'
 
 const SinglePage = () => {
 
   const [like, setLike] = useState(0)
+
+  const [loading, setLoading] = useState(false)
 
   const [similarpost , setSimilarpost] = useState([])
 
@@ -32,6 +35,7 @@ const SinglePage = () => {
 
   useEffect(() => {
     const fetchpost = async () => {
+      setLoading(true)
       const res = await axios.get(`${API_BASE_URL}/blogs/${id}`);
 
 
@@ -40,6 +44,8 @@ const SinglePage = () => {
       setSimilarpost(similar_posts.data)
 
       setPost(res.data);
+
+      setLoading(false)
 
       console.log(res.data);
     };
@@ -60,11 +66,14 @@ const SinglePage = () => {
     // Rest of your logic...
 
     try {
+      setLoading(true)
       const response = await axios.post(`${API_BASE_URL}/post/${id}/comment`, {
         content: comment,
         user_id: state.user.id,
         blog_id: post.id,
       });
+
+      setLoading(false)
 
       toast.success("your comment has been published");
       console.log(response.data);
@@ -201,8 +210,18 @@ const SinglePage = () => {
             </div>
 
             <div className="max-w-full">
+
               <p class="">
                 <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif text-md bg-white p-4 rounded-2 ">
+                  
+                { loading && <Audio
+          height="80"
+          width="80"
+          radius="9"
+          color="green"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass/> }
                   <ReactMarkdown
                     components={components}
                     breaks

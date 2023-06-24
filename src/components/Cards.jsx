@@ -3,9 +3,12 @@ import Card from "./Card";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import API_BASE_URL from "../config";
+import { Audio } from 'react-loader-spinner'
 
 const Cards = () => {
   const [blogs, setBlogs] = useState([]);
+
+  const [loading, setLoading] = useState(false)
 
   const [searchQuery, setSearchQuery] = useState("");
   const [matchingPosts, setMatchingPosts] = useState([]);
@@ -15,19 +18,25 @@ const Cards = () => {
 
     console.log(`search query is ${searchQuery}`);
 
+    setLoading(true)
+
     // Make a request to the backend endpoint
     const response = await axios.get(
       `${API_BASE_URL}/blogs/all/search?query=${query}`
     );
     setMatchingPosts(response.data);
+
+    setLoading(false)
   };
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setLoading(true)
         const response = await axios.get(`${API_BASE_URL}/blogs`);
         setBlogs(response.data);
         console.log(response.data);
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching blog posts:", error);
       }
@@ -84,6 +93,7 @@ const Cards = () => {
                 ></path>
               </svg>
             </button>
+            
           </div>
           <button
             type="submit"
@@ -193,6 +203,14 @@ const Cards = () => {
       </div>
 
       <div className="flex flex-col justify-center items-center gap-5 mx-5">
+      { loading && <Audio
+          height="80"
+          width="80"
+          radius="9"
+          color="green"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass/> }
         {blogs.map((blog, index) => (
           <Card blog={blog} />
         ))}
