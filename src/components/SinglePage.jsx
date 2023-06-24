@@ -213,7 +213,8 @@ const SinglePage = () => {
 
               <p class="">
                 <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif text-md bg-white p-4 rounded-2 ">
-                  
+                
+                <div className="ml-80">
                 { loading && <Audio
           height="80"
           width="80"
@@ -222,6 +223,7 @@ const SinglePage = () => {
           ariaLabel="loading"
           wrapperStyle
           wrapperClass/> }
+          </div>
                   <ReactMarkdown
                     components={components}
                     breaks

@@ -3,8 +3,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import API_BASE_URL from "../config";
+import { Audio } from 'react-loader-spinner'
 
 const Registration = () => {
+
+  const [loading, setLoading] = useState(false)
   const [name, setName] = useState("");
 
   const [email, setEmail] = useState("");
@@ -30,6 +33,7 @@ const Registration = () => {
 
     let response = "";
     try {
+      setLoading(true)
       response = await axios.post(`${API_BASE_URL}/register`, {
         name,
         email,
@@ -37,6 +41,7 @@ const Registration = () => {
       });
 
       toast.success(response.data.message);
+     
 
       console.log(response.data); // Assuming the response contains JSON data
     } catch (error) {
@@ -49,6 +54,7 @@ const Registration = () => {
 
       console.log(name, email, password);
     }
+    setLoading(false)
   };
   return (
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -129,13 +135,16 @@ const Registration = () => {
           </div>
 
           <div>
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign in
-            </button>
+          <button type="submit"  onClick={handleSubmit}  class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        { loading ? <Audio
+          height="25"
+          width="30"
+          radius="6"
+          color="white"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass/>  : "Sign Up"}
+        </button>
           </div>
         </form>
 
