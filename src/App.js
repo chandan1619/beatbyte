@@ -1,9 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
-import TopBar from './components/TopBar';
-import Login from './components/Login';
-import Registration from './components/Registration';
-import {BrowserRouter as Router, Routes, Route,Navigate} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import login from './pages/login';
 import registration from './pages/registration';
 import home from './pages/home';
