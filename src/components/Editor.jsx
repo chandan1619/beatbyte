@@ -41,7 +41,6 @@ const Editor = () => {
         event.target.value = ""; // Clear the input field
       }
 
-      console.log(tags.map((tagObj) => tagObj.tag).join(","))
     }
   };
 
@@ -62,8 +61,10 @@ const Editor = () => {
             description: description,
             content: content,
             category: selectedOption,
-            tags : tags.join(',')
+            tags : tags.map((tagObj) => tagObj.tag).join(',')
           };
+
+          console.log(payload)
 
           const response_update = await axios.put(
             `${API_BASE_URL}/blogs/${id}`,
