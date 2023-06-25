@@ -123,8 +123,8 @@ const SinglePage = () => {
 
   return (
     <div class="mt-6 bg-gray-50">
-      <div class=" px-10 py-6 mx-auto">
-        <div class="max-w-6xl px-10 mx-auto bg-gray-50">
+      <div class="py-6 mx-auto text-sm md:px-10 md:text-md">
+        <div class="max-w-6xl  bg-gray-50 md:px-10">
           <div class="flex items-center justify-start mt-4 mb-4">
 
             {post.tags && post.tags.map((tag)=>(
@@ -200,7 +200,7 @@ const SinglePage = () => {
             </div>
           </div>
 
-          <div class="max-w-4xl  text-2xl text-gray-700 rounded bg-gray-10 ml-20">
+          <div class="max-w-6xl  text-2xl text-gray-700 rounded bg-gray-10">
             <div>
               <p>
                 <p class="font-bold  w-full text-gray-700">
@@ -212,7 +212,7 @@ const SinglePage = () => {
             <div className="max-w-full lg:text-md lg:p-1">
 
               <p class="">
-              <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif text-md bg-white p-4 rounded-2">
+              <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif bg-white p-4 rounded-2 text-md">
 
                 
                 <div className="ml-80">
