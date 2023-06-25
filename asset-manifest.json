@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/beatbyte/static/css/main.bc1dca3e.css",
+    "main.js": "/beatbyte/static/js/main.23dfdaba.js",
+    "static/media/clapping.png": "/beatbyte/static/media/clapping.fbc1b9a4061c7a853961.png",
+    "index.html": "/beatbyte/index.html",
+    "main.bc1dca3e.css.map": "/beatbyte/static/css/main.bc1dca3e.css.map",
+    "main.23dfdaba.js.map": "/beatbyte/static/js/main.23dfdaba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc1dca3e.css",
+    "static/js/main.23dfdaba.js"
+  ]
+}
