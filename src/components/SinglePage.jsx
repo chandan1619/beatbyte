@@ -209,10 +209,11 @@ const SinglePage = () => {
               </p>
             </div>
 
-            <div className="max-w-full">
+            <div className="max-w-full lg:text-md lg:p-1">
 
               <p class="">
-                <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif text-md bg-white p-4 rounded-2 ">
+              <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif text-md bg-white p-4 rounded-2">
+
                 
                 <div className="ml-80">
                 { loading && <Audio
