@@ -58,7 +58,7 @@ const TopBar = () => {
             </button>
           </div>
           <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div class="flex flex-shrink-0 items-center">
+            <div class="flex flex-shrink-0 items-center sm:items-left">
               <img
                 class="block h-8 w-auto lg:hidden"
                 src={logo}

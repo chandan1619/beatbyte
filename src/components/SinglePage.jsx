@@ -306,7 +306,7 @@ const SinglePage = () => {
                 type="submit"
                 value="Submit comment"
                 name="submit"
-                class=" text-white px-4 py-3 bg-blue-500  rounded-lg"
+                class=" text-white px-4 py-3 bg-blue-500  rounded-lg cursor-pointer"
               />
             </form>
           </div>
