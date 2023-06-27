@@ -10,15 +10,14 @@ import API_BASE_URL from "../config";
 import clap from "../images/clapping.png";
 import ReactMarkdown from "react-markdown";
 import Card from "./Card";
-import { Audio } from 'react-loader-spinner'
+import { Audio } from "react-loader-spinner";
 
 const SinglePage = () => {
+  const [like, setLike] = useState(0);
 
-  const [like, setLike] = useState(0)
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] = useState(false)
-
-  const [similarpost , setSimilarpost] = useState([])
+  const [similarpost, setSimilarpost] = useState([]);
 
   const [comment, setComment] = useState("");
 
@@ -35,17 +34,18 @@ const SinglePage = () => {
 
   useEffect(() => {
     const fetchpost = async () => {
-      setLoading(true)
+      setLoading(true);
       const res = await axios.get(`${API_BASE_URL}/blogs/${id}`);
 
+      const similar_posts = await axios.get(
+        `${API_BASE_URL}/matchingpost/${id}`
+      );
 
-      const similar_posts = await axios.get(`${API_BASE_URL}/matchingpost/${id}`);
-
-      setSimilarpost(similar_posts.data)
+      setSimilarpost(similar_posts.data);
 
       setPost(res.data);
 
-      setLoading(false)
+      setLoading(false);
 
       console.log(res.data);
     };
@@ -66,14 +66,14 @@ const SinglePage = () => {
     // Rest of your logic...
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await axios.post(`${API_BASE_URL}/post/${id}/comment`, {
         content: comment,
         user_id: state.user.id,
         blog_id: post.id,
       });
 
-      setLoading(false)
+      setLoading(false);
 
       toast.success("your comment has been published");
       console.log(response.data);
@@ -126,16 +126,15 @@ const SinglePage = () => {
       <div class="py-6 mx-auto text-sm md:px-10 md:text-md">
         <div class="max-w-6xl  bg-gray-50 md:px-10">
           <div class="flex items-center justify-start mt-4 mb-4">
-
-            {post.tags && post.tags.map((tag)=>(
-              <a
-              href="#"
-              class="px-2 py-1 font-bold bg-blue-400 text-white rounded-lg hover:bg-gray-500 mr-4"
-            >
-              {tag}
-            </a>
-            ))}
-            
+            {post.tags &&
+              post.tags.map((tag) => (
+                <a
+                  href="#"
+                  class="px-2 py-1 font-bold bg-blue-400 text-white rounded-lg hover:bg-gray-500 mr-4"
+                >
+                  {tag}
+                </a>
+              ))}
           </div>
           <div class="mt-2">
             <a
@@ -168,15 +167,16 @@ const SinglePage = () => {
                     )}
                   </p>
                   <div className="flex flex-row">
-                  <p>
-                    Published on{" "}
-                    {new Date(post.date_added).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })},
-                  </p>
-                  <p class="text-sm text-gray-900 ml-2"> 2 min read</p>
+                    <p>
+                      Published on{" "}
+                      {new Date(post.date_added).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                      ,
+                    </p>
+                    <p class="text-sm text-gray-900 ml-2"> 2 min read</p>
                   </div>
                 </div>
               </a>
@@ -210,21 +210,21 @@ const SinglePage = () => {
             </div>
 
             <div className="max-w-full lg:text-md lg:p-1">
-
               <p class="">
-              <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif bg-white p-4 rounded-2 text-md">
-
-                
-                <div className="ml-80">
-                { loading && <Audio
-          height="80"
-          width="80"
-          radius="9"
-          color="green"
-          ariaLabel="loading"
-          wrapperStyle
-          wrapperClass/> }
-          </div>
+                <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif bg-white p-4 rounded-2 text-md">
+                  <div className="ml-80">
+                    {loading && (
+                      <Audio
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="green"
+                        ariaLabel="loading"
+                        wrapperStyle
+                        wrapperClass
+                      />
+                    )}
+                  </div>
                   <ReactMarkdown
                     components={components}
                     breaks
@@ -239,7 +239,7 @@ const SinglePage = () => {
               <div className="flex justify-left items-center align-center mt-10">
                 <svg
                   className=" hover:fill-blue-500 cursor-pointer"
-                  onClick={(e)=>setLike((prev)=>prev +1)}
+                  onClick={(e) => setLike((prev) => prev + 1)}
                   height="25pt"
                   viewBox="0 0 464.30336 464"
                   width="28pt"
@@ -255,10 +255,18 @@ const SinglePage = () => {
                 </svg>
                 <p className="ml-2 text-sm">{like}</p>
 
-                <svg xmlns="http://www.w3.org/2000/svg" 
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
                   height="30pt"
-                  className  ="hover:fill-blue-500 ml-2 cursor-pointer"
-                  width="30pt" id="comment"><path fill="#231F20" d="M25.784 21.017A10.992 10.992 0 0 0 27 16c0-6.065-4.935-11-11-11S5 9.935 5 16s4.935 11 11 11c1.742 0 3.468-.419 5.018-1.215l4.74 1.185a.996.996 0 0 0 .949-.263 1 1 0 0 0 .263-.95l-1.186-4.74zm-2.033.11.874 3.498-3.498-.875a1.006 1.006 0 0 0-.731.098A8.99 8.99 0 0 1 16 25c-4.963 0-9-4.038-9-9s4.037-9 9-9 9 4.038 9 9a8.997 8.997 0 0 1-1.151 4.395.995.995 0 0 0-.098.732z"></path></svg>
+                  className="hover:fill-blue-500 ml-2 cursor-pointer"
+                  width="30pt"
+                  id="comment"
+                >
+                  <path
+                    fill="#231F20"
+                    d="M25.784 21.017A10.992 10.992 0 0 0 27 16c0-6.065-4.935-11-11-11S5 9.935 5 16s4.935 11 11 11c1.742 0 3.468-.419 5.018-1.215l4.74 1.185a.996.996 0 0 0 .949-.263 1 1 0 0 0 .263-.95l-1.186-4.74zm-2.033.11.874 3.498-3.498-.875a1.006 1.006 0 0 0-.731.098A8.99 8.99 0 0 1 16 25c-4.963 0-9-4.038-9-9s4.037-9 9-9 9 4.038 9 9a8.997 8.997 0 0 1-1.151 4.395.995.995 0 0 0-.098.732z"
+                  ></path>
+                </svg>
                 <p className="text-sm">4</p>
               </div>
             </div>
@@ -269,19 +277,13 @@ const SinglePage = () => {
           Related Posts
         </h2>
 
-       
-        <div class="flex flex-row max-w-lg flex-wrap">
-
-        
-         
-
-          {similarpost && similarpost.map((similar_post,index)=>(
-            
-              <Card blog={similar_post} />
-          
-          ))}
-  
-          
+        <div className="flex flex-wrap flex-row gap-4">
+          {similarpost &&
+            similarpost.map((similar_post, index) => (
+              <div className="max-w-lg mt-10">
+                <Card blog={similar_post} />
+              </div>
+            ))}
         </div>
 
         <div class="max-w-4xl py-16 xl:px-8 flex justify-center mx-auto">
