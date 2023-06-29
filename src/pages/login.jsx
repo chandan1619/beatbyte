@@ -1,17 +1,18 @@
-import React from 'react'
-import TopBar from '../components/TopBar'
-import Login from '../components/Login'
-import Footer from '../components/Footer'
-
+import React from "react";
+import TopBar from "../components/TopBar";
+import Login from "../components/Login";
+import Footer from "../components/Footer";
 
 const login = () => {
   return (
-    <div className='min-w-screen min-h-screen'>
-    <TopBar/>
-    <Login/>
-    <Footer/>
+    <div class="flex flex-col min-h-screen">
+      <div class="flex-grow">
+        <TopBar />
+        <Login />
+      </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default login
+export default login;
