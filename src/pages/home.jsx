@@ -5,9 +5,11 @@ import Footer from "../components/Footer";
 
 const home = () => {
   return (
-    <div className="h-screen">
+    <div className="flex flex-col min-h-screen">
+      <div class="flex-grow">
       <TopBar />
       <Cards />
+      </div>
       <Footer />
     </div>
   );
