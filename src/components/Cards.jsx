@@ -9,10 +9,24 @@ import logo from "../images/logo.png";
 const Cards = () => {
   const [blogs, setBlogs] = useState([]);
 
+  const [page, setPage] = useState(1);
+
   const [loading, setLoading] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [matchingPosts, setMatchingPosts] = useState([]);
+
+  const handlePrevPage = () => {
+    setPage((prevPage) => Math.max(1, prevPage - 1)); // Decrement the page by 1
+  };
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1); // Increment the page by 1
+  };
+
+  const handlePageClick = (pageNumber) => {
+    setPage((prevPage) => pageNumber); // Set the page to the clicked page number
+  };
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
@@ -34,17 +48,19 @@ const Cards = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${API_BASE_URL}/blogs`);
+        console.log(`${API_BASE_URL}/blogs?page=${page}`);
+        const response = await axios.get(`${API_BASE_URL}/blogs?page=${page}`);
         setBlogs(response.data);
         console.log(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching blog posts:", error);
+        setLoading(false);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -219,24 +235,25 @@ const Cards = () => {
         ))}
 
         <nav aria-label="Page navigation example">
-          <ul class="inline-flex items-center -space-x-px mt-10">
+          <ul className="inline-flex items-center -space-x-px mt-10">
             <li>
               <a
                 href="#"
-                class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                onClick={handlePrevPage}
               >
-                <span class="sr-only bg-teal-900">Previous</span>
+                <span className="sr-only bg-teal-900">Previous</span>
                 <svg
                   aria-hidden="true"
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </a>
@@ -244,7 +261,12 @@ const Cards = () => {
             <li>
               <a
                 href="#"
-                class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className={`px-3 py-2 leading-tight ${
+                  page === 1
+                    ? "text-blue-600 border border-blue-300 bg-blue-50"
+                    : "text-gray-500 bg-white border border-gray-300"
+                } hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                onClick={() => handlePageClick(1)}
               >
                 1
               </a>
@@ -252,7 +274,12 @@ const Cards = () => {
             <li>
               <a
                 href="#"
-                class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className={`px-3 py-2 leading-tight ${
+                  page === 2
+                    ? "text-blue-600 border border-blue-300 bg-blue-50"
+                    : "text-gray-500 bg-white border border-gray-300"
+                } hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                onClick={() => handlePageClick(2)}
               >
                 2
               </a>
@@ -261,7 +288,12 @@ const Cards = () => {
               <a
                 href="#"
                 aria-current="page"
-                class="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                className={`z-10 px-3 py-2 leading-tight ${
+                  page === 3
+                    ? "text-blue-600 border border-blue-300 bg-blue-50"
+                    : "text-gray-500 bg-white border border-gray-300"
+                } hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                onClick={() => handlePageClick(3)}
               >
                 3
               </a>
@@ -269,7 +301,12 @@ const Cards = () => {
             <li>
               <a
                 href="#"
-                class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className={`px-3 py-2 leading-tight ${
+                  page === 4
+                    ? "text-blue-600 border border-blue-300 bg-blue-50"
+                    : "text-gray-500 bg-white border border-gray-300"
+                } hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                onClick={() => handlePageClick(4)}
               >
                 4
               </a>
@@ -277,7 +314,12 @@ const Cards = () => {
             <li>
               <a
                 href="#"
-                class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className={`px-3 py-2 leading-tight ${
+                  page === 5
+                    ? "text-blue-600 border border-blue-300 bg-blue-50"
+                    : "text-gray-500 bg-white border border-gray-300"
+                } hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                onClick={() => handlePageClick(5)}
               >
                 5
               </a>
@@ -285,20 +327,21 @@ const Cards = () => {
             <li>
               <a
                 href="#"
-                class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                onClick={handleNextPage}
               >
-                <span class="sr-only">Next</span>
+                <span className="sr-only">Next</span>
                 <svg
                   aria-hidden="true"
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </a>
