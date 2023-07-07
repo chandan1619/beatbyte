@@ -125,7 +125,7 @@ const SinglePage = () => {
     <div class="mt-6 bg-gray-50">
       <div class="py-6 mx-auto text-sm md:px-10 md:text-md">
         <div class="max-w-6xl  bg-gray-50 md:px-10">
-          <div class="flex items-center justify-start mt-4 mb-4">
+          <div class="flex flex-col items-start gap-1 justify-start mt-4 mb-4 ml-2 md:flex-row">
             {post.tags &&
               post.tags.map((tag) => (
                 <a
@@ -136,7 +136,7 @@ const SinglePage = () => {
                 </a>
               ))}
           </div>
-          <div class="mt-2">
+          <div class="mt-2 p-2">
             <a
               href="#"
               class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-black-500  hover:underline"
@@ -209,7 +209,7 @@ const SinglePage = () => {
               </p>
             </div>
 
-            <div className="max-w-full lg:text-md lg:p-1">
+            <div className="max-w-full p-2 lg:text-md lg:p-1">
               <p class="">
                 <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif bg-white p-4 rounded-2 text-md">
                   <div className="ml-80">

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import logo from '../images/logo.png'
+import logo from "../images/logo.png";
 
 const TopBar = () => {
   const { state, logout } = useContext(AuthContext);
@@ -66,7 +66,7 @@ const TopBar = () => {
               />
               <img
                 class="hidden h-8 w-auto lg:block"
-                src= {logo}
+                src={logo}
                 alt="Your Company"
               />
             </div>
@@ -165,27 +165,26 @@ const TopBar = () => {
 
       <div class="sm:hidden" id="mobile-menu">
         <div class=" flex flex-col space-y-1 px-2 pb-3 pt-2">
-        <Link
-           to="/ "
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >
-                  {" "}
-                  Home{" "}
-                </Link>
-                <Link
-                      to="/login "
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                    >
-                      {" "}
-                      Login{" "}
-                    </Link>
-                    <Link
-                      to="/register "
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                    >
-                      Signup
-                    </Link>{" "}
-                  
+          <Link
+            to="/ "
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+          >
+            {" "}
+            Home{" "}
+          </Link>
+          <Link
+            to="/login "
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+          >
+            {" "}
+            Login{" "}
+          </Link>
+          <Link
+            to="/register "
+            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+          >
+            Signup
+          </Link>{" "}
         </div>
       </div>
     </nav>

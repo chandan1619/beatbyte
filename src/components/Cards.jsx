@@ -97,7 +97,7 @@ const Cards = () => {
           </div>
           <button
             type="submit"
-            class="inline-flex items-center py-2.5 px-6 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            class="inline-flex items-center py-2.5 px-6 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hidden md:flex"
           >
             <svg
               class="mr-2 -ml-1 w-5 h-5"
@@ -225,7 +225,7 @@ const Cards = () => {
                 href="#"
                 class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               >
-                <span class="sr-only">Previous</span>
+                <span class="sr-only bg-teal-900">Previous</span>
                 <svg
                   aria-hidden="true"
                   class="w-5 h-5"
