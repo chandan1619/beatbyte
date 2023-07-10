@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
 import DeleteForeverSharpIcon from "@mui/icons-material/DeleteForeverSharp";
@@ -34,6 +34,36 @@ const SinglePage = () => {
 
   const navigate = useNavigate();
 
+  let timeoutRef = useRef(null);
+
+  useEffect(() => {
+    if (like > 0) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(async () => {
+        await saveLike();
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, [like])
+
+  const saveLike = async () => {
+    // Your API call logic to save the like count
+
+    const res = await axios.post(`${API_BASE_URL}/blogs/${id}/like?increment_by=${like}`);
+
+    console.log(res.data)
+    post.likes += like
+
+    setLike(0)
+
+    console.log(res)
+
+
+  };
+
   useEffect(() => {
     const fetchpost = async () => {
       setLoading(true);
@@ -46,7 +76,6 @@ const SinglePage = () => {
       setSimilarpost(similar_posts.data);
 
       setPost(res.data);
-
       setLoading(false);
 
       console.log(res.data);
@@ -94,6 +123,8 @@ const SinglePage = () => {
 
       setCommentCount(response.data.length);
 
+      
+
       console.log(`comments is ${response.data}`);
     };
 
@@ -124,6 +155,8 @@ const SinglePage = () => {
   const components = {
     img: Image,
   };
+
+  
 
   return (
     <div class="mt-6 bg-gray-50">
@@ -257,7 +290,7 @@ const SinglePage = () => {
                   <path d="m216.179688 72.046875c4.417968 0 8-3.582031 8-8v-48c0-4.417969-3.582032-8-8-8-4.417969 0-8 3.582031-8 8v48c0 4.417969 3.582031 8 8 8zm0 0" />
                   <path d="m145.929688 85.046875c2.761718 3.449219 7.800781 4.007813 11.25 1.246094 3.449218-2.757813 4.007812-7.796875 1.246093-11.246094l-32-40c-2.757812-3.449219-7.796875-4.007813-11.246093-1.246094-3.449219 2.757813-4.007813 7.796875-1.25 11.246094zm0 0" />
                 </svg>
-                <p className="ml-2 text-sm">{like}</p>
+                <p className="ml-2 text-sm">{post.likes + like}</p>
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
