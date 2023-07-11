@@ -47,21 +47,21 @@ const SinglePage = () => {
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [like])
+  }, [like]);
 
   const saveLike = async () => {
     // Your API call logic to save the like count
 
-    const res = await axios.post(`${API_BASE_URL}/blogs/${id}/like?increment_by=${like}`);
+    const res = await axios.post(
+      `${API_BASE_URL}/blogs/${id}/like?increment_by=${like}`
+    );
 
-    console.log(res.data)
-    post.likes += like
+    console.log(res.data);
+    post.likes += like;
 
-    setLike(0)
+    setLike(0);
 
-    console.log(res)
-
-
+    console.log(res);
   };
 
   useEffect(() => {
@@ -123,8 +123,6 @@ const SinglePage = () => {
 
       setCommentCount(response.data.length);
 
-      
-
       console.log(`comments is ${response.data}`);
     };
 
@@ -155,8 +153,6 @@ const SinglePage = () => {
   const components = {
     img: Image,
   };
-
-  
 
   return (
     <div class="mt-6 bg-gray-50">
@@ -249,18 +245,20 @@ const SinglePage = () => {
             <div className="max-w-full p-2 lg:text-md lg:p-1">
               <p class="">
                 <pre className="whitespace-pre-wrap overflow-x-auto max-w-full font-serif bg-white p-4 rounded-2 text-md">
-                  <div className="ml-80">
-                    {loading && (
-                      <Audio
-                        height="80"
-                        width="80"
-                        radius="9"
-                        color="green"
-                        ariaLabel="loading"
-                        wrapperStyle
-                        wrapperClass
-                      />
-                    )}
+                  <div class="flex justify-center items-center">
+                    <div className="">
+                      {loading && (
+                        <Audio
+                          height="80"
+                          width="80"
+                          radius="9"
+                          color="green"
+                          ariaLabel="loading"
+                          wrapperStyle
+                          wrapperClass
+                        />
+                      )}
+                    </div>
                   </div>
                   <ReactMarkdown
                     components={components}
